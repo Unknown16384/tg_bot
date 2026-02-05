@@ -1,6 +1,6 @@
 import telebot, psycopg2
 
-conn = psycopg2.connect('postgresql://postgres:@:5433/database')
+conn = psycopg2.connect('postgresql://postgres:@:5433/database') # здесь указать БД
 curs = conn.cursor()
 curs.execute("""CREATE TABLE IF NOT EXISTS tasks (
                 id SERIAL PRIMARY KEY, 
@@ -8,7 +8,8 @@ curs.execute("""CREATE TABLE IF NOT EXISTS tasks (
                 task_id INT NOT NULL, 
                 name TEXT NOT NULL, 
                 is_completed BOOLEAN DEFAULT FALSE)""")
-bot = telebot.TeleBot('MY_BOT_TOKEN :)') # ибо не положено его показывать посторонним (хотя он все равно уже удален) :)
+bot = telebot.TeleBot('MY_BOT_TOKEN') # здесь указать токен для бота
+
 @bot.message_handler(commands=['start', 'help'])
 def starting(message):
     bot.send_message(message.from_user.id, 'Telegram-бот для управления ту-ду-листом.\n'
